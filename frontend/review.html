@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - Mayo Clinic</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2><i class="fas fa-hospital"></i> Mayo Clinic</h2>
+            </div>
+            <div class="nav-links">
+                <a href="/home.html" class="nav-link">Doctors</a>
+                <a href="/service.html" class="nav-link">Services</a>
+                <a href="/review.html" class="nav-link active">Reviews</a>
+                <a href="#" id="logoutBtn" class="nav-link">Logout</a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h1>Share Your Experience</h1>
+            <p>We value your feedback about your experience at Mayo Clinic. Share your story to help us improve.</p>
+        </div>
+
+        <div class="review-container">
+            <div class="review-form-card">
+                <h2>Submit Your Review</h2>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="description">Your Experience</label>
+                        <textarea id="description" name="description" rows="5" required placeholder="Tell us about your experience at Mayo Clinic..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <select id="rating" name="rating" required>
+                            <option value="">Select a rating</option>
+                            <option value="5">5 Stars - Excellent</option>
+                            <option value="4">4 Stars - Very Good</option>
+                            <option value="3">3 Stars - Good</option>
+                            <option value="2">2 Stars - Fair</option>
+                            <option value="1">1 Star - Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Profile Image URL (optional)</label>
+                        <input type="url" id="image" name="image" placeholder="https://example.com/your-image.jpg">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+
+            <div class="reviews-list">
+                <h2>Patient Reviews</h2>
+                <div id="reviewsContainer">
+                    <!-- Reviews will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
