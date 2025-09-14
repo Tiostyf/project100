@@ -4,90 +4,284 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mayo Clinic - World's #1 Hospital</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --primary: #3b82f6; --secondary: #10b981; --dark: #111827; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(to bottom right, var(--dark), #000); color: #f3f4f6; margin: 0; padding: 0; }
+        
+        /* Hero Section with Video Background */
+        .hero-section, .video-overlay, .hero-content, .play-btn, .video-controls, .control-btn, .footer, .back-to-top, .medical-shape { position: relative; }
+        .hero-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+        #yt-player { position: absolute; top: 50%; left: 50%; width: 100vw; height: 100vh; transform: translate(-50%, -50%); object-fit: cover; z-index: 0; }
+        .video-overlay { inset: 0; background: linear-gradient(to bottom, rgba(17, 24, 39, 0.8), rgba(0, 0, 0, 0.9)); z-index: 1; }
+        .hero-content { z-index: 2; max-width: 1200px; padding: 2rem; animation: fadeIn 1s ease-out; }
+        
+        /* Buttons */
+        .btn { display: inline-block; padding: 0.875rem 2rem; border-radius: 0.5rem; font-weight: 600; transition: all 0.3s ease; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4); }
+        .btn-outline { border: 2px solid white; color: white; }
+        .btn-outline:hover { background: white; color: var(--dark); transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.4); }
+        
+        /* Cards */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .stat-card, .card { background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(10px); border-radius: 1rem; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
+        .stat-card:hover, .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3); border-color: var(--primary); }
+        
+        /* Form Elements */
+        .form-input { width: 100%; padding: 0.75rem; background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: white; }
+        .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
+        
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+        .animate-slide-up { animation: slideUp 0.8s ease-out; }
+        .animate-slide-left { animation: slideLeft 0.8s ease-out; }
+        .animate-slide-right { animation: slideRight 0.8s ease-out; }
+        
+        /* Video Controls */
+        .play-btn { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(59, 130, 246, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 3; transition: all 0.3s ease; }
+        .play-btn:hover { background: rgba(59, 130, 246, 1); transform: translate(-50%, -50%) scale(1.1); }
+        .play-btn i { color: white; font-size: 2rem; margin-left: 5px; }
+        .video-controls { bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 3; }
+        .control-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+        .control-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        
+        /* Footer */
+        .footer { background: linear-gradient(to right, #0f172a, #1e293b); padding: 4rem 0 2rem; margin-top: 4rem; overflow: hidden; }
+        .footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--primary), var(--secondary)); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .footer-column h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; color: white; position: relative; display: inline-block; }
+        .footer-column h3::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 40px; height: 3px; background: var(--primary); border-radius: 3px; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a, .footer-contact p { color: #cbd5e1; text-decoration: none; transition: all 0.3s ease; display: flex; align-items: center; }
+        .footer-links a:hover { color: white; transform: translateX(5px); }
+        .footer-links i, .footer-contact i { margin-right: 10px; color: var(--primary); }
+        .footer-links i { font-size: 0.875rem; width: 20px; }
+        .footer-contact i { font-size: 1.125rem; width: 24px; }
+        .footer-social { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: white; transition: all 0.3s ease; }
+        .social-icon:hover { background: var(--primary); transform: translateY(-3px); }
+        .footer-newsletter p { color: #cbd5e1; margin-bottom: 1.5rem; }
+        .newsletter-form { display: flex; gap: 0.5rem; }
+        .newsletter-input { flex: 1; padding: 0.75rem 1rem; border-radius: 0.375rem; border: 1px solid #334155; background: #1e293b; color: white; }
+        .newsletter-input:focus { outline: none; border-color: var(--primary); }
+        .newsletter-btn { padding: 0.75rem 1.25rem; border-radius: 0.375rem; background: var(--primary); color: white; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .newsletter-btn:hover { background: #2563eb; }
+        .footer-bottom { max-width: 1200px; margin: 3rem auto 0; padding: 1.5rem; border-top: 1px solid #334155; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+        .footer-bottom p { color: #94a3b8; margin: 0; }
+        .footer-bottom-links { display: flex; gap: 1.5rem; }
+        .footer-bottom-links a { color: #94a3b8; text-decoration: none; transition: color 0.3s ease; }
+        .footer-bottom-links a:hover { color: white; }
+        .back-to-top { bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); transition: all 0.3s ease; z-index: 100; opacity: 0; transform: translateY(20px); }
+        .back-to-top.visible { opacity: 1; transform: translateY(0); }
+        .back-to-top:hover { background: #2563eb; transform: translateY(-3px); }
+        
+        /* Medical decorative elements */
+        .medical-shape { opacity: 0.05; pointer-events: none; }
+        .shape-1 { width: 200px; height: 200px; bottom: 50px; left: 5%; background: var(--primary); border-radius: 50%; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .shape-2 { width: 150px; height: 150px; bottom: 100px; right: 10%; background: var(--secondary); border-radius: 50%; clip-path: circle(50% at 50% 50%); }
+        
+        @media (max-width: 768px) {
+            .footer-content, .newsletter-form { grid-template-columns: 1fr; flex-direction: column; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .footer-bottom-links { justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header class="hero">
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <h2><i class="fas fa-hospital"></i> Mayo Clinic</h2>
+    <nav class="bg-gray-900/90 backdrop-blur-md fixed top-0 w-full z-20 shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h2 class="text-2xl font-bold"><i class="fa-solid fa-hospital mr-2"></i>Mayo Clinic</h2>
+            <div class="space-x-6">
+                <a href="#" class="text-blue-400 font-semibold"><i class="fa-solid fa-house mr-1"></i>Home</a>
+                <a href="/about.html" class="hover:text-white"><i class="fa-solid fa-circle-info mr-1"></i>About</a>
+                <a href="/service.html" class="hover:text-white"><i class="fa-solid fa-stethoscope mr-1"></i>Services</a>
+                <a href="/appointment.html" class="hover:text-white"><i class="fa-solid fa-calendar-check mr-1"></i>Appointment</a>
+                <a href="/review.html" class="hover:text-white"><i class="fa-solid fa-star mr-1"></i>Review</a>
+                <a href="/logout.html" class="hover:text-white"><i class="fa-solid fa-right-from-bracket mr-1"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto pt-20 pb-12">
+        <!-- Hero with YouTube Video Background -->
+        <section class="hero-section">
+            <div id="yt-player"></div>
+            <div class="play-btn" id="play-btn"><i class="fas fa-play"></i></div>
+            <div class="video-controls">
+                <button class="control-btn" id="play-pause-btn"><i class="fas fa-pause"></i></button>
+                <button class="control-btn" id="mute-btn"><i class="fas fa-volume-up"></i></button>
+            </div>
+            <div class="video-overlay"></div>
+            <div class="hero-content space-y-8">
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight">World's #1 Hospital</h1>
+                <p class="text-xl max-w-3xl mx-auto text-gray-300">Experience our state-of-the-art facilities delivering innovation and compassionate care to patients worldwide.</p>
+                <div class="flex flex-wrap justify-center gap-6 mt-8">
+                    <a href="/register.html" class="btn btn-primary">Get Started <i class="fa-solid fa-arrow-right ml-2"></i></a>
+                    <a href="/login.html" class="btn btn-outline">Patient Login</a>
                 </div>
-                <div class="nav-links">
-                    <a href="#" class="nav-link active">Home</a>
-                    <a href="/register.html" class="nav-link">Register</a>
-                    <a href="/login.html" class="nav-link">Login</a>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="text-4xl font-bold text-blue-400">98%</div><div class="text-gray-300 mt-2">Patient Satisfaction</div></div>
+                    <div class="stat-card"><div class="text-4xl font-bold text-green-400">1.3M+</div><div class="text-gray-300 mt-2">Patients Yearly</div></div>
+                    <div class="stat-card"><div class="text-4xl font-bold text-purple-400">76K+</div><div class="text-gray-300 mt-2">Surgeries Performed</div></div>
+                    <div class="stat-card"><div class="text-4xl font-bold text-yellow-400">150+</div><div class="text-gray-300 mt-2">Years of Excellence</div></div>
                 </div>
-            </nav>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="py-16">
+            <div class="text-center space-y-6 animate-slide-up">
+                <h2 class="text-4xl font-semibold">Connect With Us</h2>
+                <div class="max-w-lg mx-auto bg-gray-800/80 backdrop-blur-lg p-8 rounded-2xl shadow-lg space-y-4">
+                    <div><label class="block text-sm font-medium"><i class="fa-solid fa-user mr-2"></i>Full Name</label><input type="text" class="form-input" placeholder="Your Name" required></div>
+                    <div><label class="block text-sm font-medium"><i class="fa-solid fa-envelope mr-2"></i>Email Address</label><input type="email" class="form-input" placeholder="Your Email" required></div>
+                    <div><label class="block text-sm font-medium"><i class="fa-solid fa-message mr-2"></i>Your Message</label><textarea class="form-input" rows="5" placeholder="How can we assist you?" required></textarea></div>
+                    <button type="submit" class="btn btn-primary w-full">Send Message</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infrastructure -->
+        <section class="py-16">
+            <div class="text-center space-y-6 animate-slide-left">
+                <h2 class="text-4xl font-semibold">Next-Gen Infrastructure</h2>
+                <p class="text-lg max-w-3xl mx-auto">Cutting-edge facilities for unparalleled care.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card"><i class="fa-solid fa-building-columns text-3xl text-blue-400 mb-4"></i><h3 class="text-xl font-semibold">Modern Facilities</h3><p>20M+ sq. ft. of innovative spaces.</p></div>
+                    <div class="card"><i class="fa-solid fa-microscope text-3xl text-blue-400 mb-4"></i><h3 class="text-xl font-semibold">Advanced Labs</h3><p>Transformative research hubs.</p></div>
+                    <div class="card"><i class="fa-solid fa-bed-pulse text-3xl text-blue-400 mb-4"></i><h3 class="text-xl font-semibold">Luxury Rooms</h3><p>Private suites with top amenities.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campus Navigator -->
+        <section class="py-16">
+            <div class="text-center space-y-6 animate-slide-right">
+                <h2 class="text-4xl font-semibold">Campus Navigator</h2>
+                <p class="text-lg max-w-3xl mx-auto">Explore our Rochester campus.</p>
+                <div class="bg-gray-800/80 backdrop-blur-lg p-6 rounded-2xl shadow-lg">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2836.973458489!2d-92.482677!3d44.022538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87f9e3f3e92f1d6b%3A0x5b3d7d5f0e3f0f0!2sMayo%20Clinic!5e0!3m2!1sen!2sus!4v1726230000000" class="w-full h-[500px] rounded-2xl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Our Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Emergency Care</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Heart Surgery</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Neurology</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Dental Care</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Ophthalmology</a></li>
+                </ul>
+            </div>
             
-            <div class="hero-content">
-                <h1>World's #1 Ranked Hospital</h1>
-                <p>Mayo Clinic in Rochester, USA is consistently ranked #1 for exceptional patient outcomes, pioneering treatments, and sustained excellence in healthcare.</p>
-                <div class="hero-buttons">
-                    <a href="/register.html" class="btn btn-primary">Get Started</a>
-                    <a href="/login.html" class="btn btn-secondary">Login</a>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 200 First St SW, Rochester, MN 55905</p>
+                    <p><i class="fas fa-phone"></i> +1 (507) 538-3270</p>
+                    <p><i class="fas fa-envelope"></i> info@mayoclinic.org</p>
+                    <p><i class="fas fa-clock"></i> Open 24/7</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
-        </header>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter to get updates on our services and health tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mayo Clinic. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
 
-        <section class="features">
-            <div class="feature-card">
-                <i class="fas fa-user-md"></i>
-                <h3>World-Class Doctors</h3>
-                <p>Our physicians are leaders in their fields with unparalleled expertise.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-heartbeat"></i>
-                <h3>Cutting-Edge Treatments</h3>
-                <p>Access to the latest medical advancements and innovative therapies.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-award"></i>
-                <h3>#1 Ranked Hospital</h3>
-                <p>Consistently ranked as the best hospital in the United States.</p>
-            </div>
-        </section>
+    <!-- YouTube IFrame API -->
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        <section class="testimonials">
-            <h2>Patient Experiences</h2>
-            <div class="testimonial-cards">
-                <div class="testimonial-card">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Patient">
-                    <div class="testimonial-content">
-                        <h4>Sarah Johnson</h4>
-                        <p>"The care I received at Mayo Clinic was exceptional. The doctors took the time to explain everything and made me feel truly cared for."</p>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Patient">
-                    <div class="testimonial-content">
-                        <h4>Michael Chen</h4>
-                        <p>"The multidisciplinary approach at Mayo Clinic is unmatched. They coordinated all my care seamlessly between specialists."</p>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '100%', width: '100%', videoId: 'TgYY6cRazHM',
+                playerVars: { 'playsinline': 1, 'controls': 0, 'rel': 0, 'modestbranding': 1, 'loop': 1, 'playlist': 'TgYY6cRazHM' },
+                events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
+            });
+        }
 
-        <footer>
-            <p>&copy; 2023 Mayo Clinic, Rochester, USA. Consistently ranked #1 for exceptional patient care.</p>
-        </footer>
-    </div>
-    <script src="app.js"></script>
+        function onPlayerReady(event) {
+            event.target.setVolume(30);
+            document.getElementById('mute-btn').addEventListener('click', function() {
+                if (player.isMuted()) { player.unMute(); this.innerHTML = '<i class="fas fa-volume-up"></i>'; } 
+                else { player.mute(); this.innerHTML = '<i class="fas fa-volume-mute"></i>'; }
+            });
+            
+            document.getElementById('play-pause-btn').addEventListener('click', function() {
+                if (player.getPlayerState() === YT.PlayerState.PLAYING) { player.pauseVideo(); this.innerHTML = '<i class="fas fa-play"></i>'; } 
+                else { player.playVideo(); this.innerHTML = '<i class="fas fa-pause"></i>'; }
+            });
+            
+            document.getElementById('play-btn').addEventListener('click', function() {
+                player.playVideo(); this.style.display = 'none'; document.getElementById('play-pause-btn').innerHTML = '<i class="fas fa-pause"></i>';
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) document.getElementById('play-btn').style.display = 'none';
+            if (event.data === YT.PlayerState.ENDED) player.playVideo();
+        }
+        
+        const backToTopButton = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTopButton.classList.toggle('visible', window.pageYOffset > 300);
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emailInput = newsletterForm.querySelector('input[type="email"]');
+                if (emailInput.value && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                    alert('Thank you for subscribing to our newsletter!'); emailInput.value = '';
+                } else { alert('Please enter a valid email address.'); }
+            });
+        }
+    </script>
 </body>
 </html>

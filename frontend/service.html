@@ -10,6 +10,15 @@
 </head>
 <body>
     <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Welcome to World-Class Healthcare</h1>
+                <p>Discover Mayo Clinic's comprehensive medical services tailored to your needs, powered by innovation and compassion.</p>
+                <a href="#services" class="hero-btn">Explore Our Services</a>
+            </div>
+        </section>
+
         <nav class="navbar">
             <div class="nav-brand">
                 <h2><i class="fas fa-hospital"></i> Mayo Clinic</h2>
@@ -22,7 +31,7 @@
             </div>
         </nav>
 
-        <div class="page-header">
+        <div class="page-header" id="services">
             <h1>Comprehensive Medical Services</h1>
             <p>Mayo Clinic offers a wide range of specialized medical services with the latest technology and treatment approaches.</p>
         </div>
@@ -111,8 +120,489 @@
                     <li>Pediatric Specialties</li>
                 </ul>
             </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <h3>Endocrinology</h3>
+                <p>Expert management of hormonal and metabolic disorders.</p>
+                <ul>
+                    <li>Diabetes Care</li>
+                    <li>Thyroid Disorders</li>
+                    <li>Adrenal Gland Treatment</li>
+                    <li>Hormone Replacement Therapy</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Ophthalmology</h3>
+                <p>Advanced eye care for vision preservation and treatment.</p>
+                <ul>
+                    <li>Cataract Surgery</li>
+                    <li>Glaucoma Treatment</li>
+                    <li>Retinal Disorders</li>
+                    <li>LASIK Surgery</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tooth"></i>
+                </div>
+                <h3>Dentistry</h3>
+                <p>Comprehensive dental care for all ages.</p>
+                <ul>
+                    <li>Preventive Dentistry</li>
+                    <li>Orthodontics</li>
+                    <li>Oral Surgery</li>
+                    <li>Cosmetic Dentistry</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-x-ray"></i>
+                </div>
+                <h3>Radiology</h3>
+                <p>State-of-the-art imaging services for accurate diagnosis.</p>
+                <ul>
+                    <li>MRI Scans</li>
+                    <li>CT Imaging</li>
+                    <li>Ultrasound</li>
+                    <li>X-Ray Services</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2>Contact Us</h2>
+            <p>Reach out to us for appointments, inquiries, or feedback.</p>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="contact-name">Full Name</label>
+                        <input type="text" id="contact-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" placeholder="Your message" required></textarea>
+                    </div>
+                    <button type="submit" class="form-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Job Application Section -->
+        <section class="job-section">
+            <h2>Join Our Team</h2>
+            <p>Explore career opportunities at Mayo Clinic and make a difference in healthcare.</p>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="job-name">Full Name</label>
+                        <input type="text" id="job-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="job-email">Email</label>
+                        <input type="email" id="job-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="job-position">Position Applying For</label>
+                        <input type="text" id="job-position" placeholder="e.g., Registered Nurse" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="job-resume">Upload Resume</label>
+                        <input type="file" id="job-resume" accept=".pdf,.doc,.docx" required>
+                    </div>
+                    <button type="submit" class="form-btn">Apply Now</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Request Form Section -->
+        <section class="request-section">
+            <h2>Request an Appointment</h2>
+            <p>Schedule your visit with our specialists today.</p>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="request-name">Full Name</label>
+                        <input type="text" id="request-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-email">Email</label>
+                        <input type="email" id="request-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-service">Service Needed</label>
+                        <select id="request-service" required>
+                            <option value="" disabled selected>Select a service</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="oncology">Oncology</option>
+                            <option value="neurology">Neurology</option>
+                            <option value="orthopedics">Orthopedics</option>
+                            <option value="pulmonology">Pulmonology</option>
+                            <option value="pediatrics">Pediatrics</option>
+                            <option value="endocrinology">Endocrinology</option>
+                            <option value="ophthalmology">Ophthalmology</option>
+                            <option value="dentistry">Dentistry</option>
+                            <option value="radiology">Radiology</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-date">Preferred Date</label>
+                        <input type="date" id="request-date" required>
+                    </div>
+                    <button type="submit" class="form-btn">Request Appointment</button>
+                </form>
+            </div>
+        </section>
+        <section class="mental-health-section">
+    <h2>Mental Health Services</h2>
+    <p>Our compassionate team provides comprehensive mental health care to support emotional and psychological well-being.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-head-side-virus"></i>
+            </div>
+            <h3>Psychiatry</h3>
+            <p>Expert diagnosis and treatment for mental health conditions like depression and anxiety.</p>
+            <ul>
+                <li>Mood Disorder Treatment</li>
+                <li>Anxiety Management</li>
+                <li>Addiction Recovery</li>
+                <li>Psychiatric Evaluations</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Counseling Services</h3>
+            <p>Individual, family, and group therapy sessions to address life’s challenges.</p>
+            <ul>
+                <li>Cognitive Behavioral Therapy</li>
+                <li>Family Counseling</li>
+                <li>Grief Counseling</li>
+                <li>Stress Management</li>
+            </ul>
         </div>
     </div>
+</section><section class="rehabilitation-section">
+    <h2>Rehabilitation Services</h2>
+    <p>Regain strength and mobility with our tailored rehabilitation programs.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-walking"></i>
+            </div>
+            <h3>Physical Therapy</h3>
+            <p>Customized therapy to improve mobility and recover from injuries or surgeries.</p>
+            <ul>
+                <li>Post-Surgical Rehab</li>
+                <li>Sports Injury Recovery</li>
+                <li>Chronic Pain Management</li>
+                <li>Balance Therapy</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-hand-holding-heart"></i>
+            </div>
+            <h3>Occupational Therapy</h3>
+            <p>Support for daily living activities and functional independence.</p>
+            <ul>
+                <li>Hand Therapy</li>
+                <li>Workplace Ergonomics</li>
+                <li>Pediatric Occupational Therapy</li>
+                <li>Stroke Recovery</li>
+            </ul>
+        </div>
+    </div>
+</section><section class="emergency-section">
+    <h2>Emergency Services</h2>
+    <p>Our state-of-the-art emergency department is ready to provide immediate care when you need it most.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-ambulance"></i>
+            </div>
+            <h3>Trauma Care</h3>
+            <p>Rapid response and treatment for severe injuries and life-threatening conditions.</p>
+            <ul>
+                <li>Level I Trauma Center</li>
+                <li>Critical Care Units</li>
+                <li>Emergency Surgery</li>
+                <li>Burn Treatment</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3>Urgent Care</h3>
+            <p>Walk-in care for non-life-threatening conditions like minor injuries and infections.</p>
+            <ul>
+                <li>Fracture Care</li>
+                <li>Infection Treatment</li>
+                <li>Minor Surgical Procedures</li>
+                <li>Diagnostic Testing</li>
+            </ul>
+        </div>
+    </div>
+</section><section class="womens-health-section">
+    <h2>Women’s Health Services</h2>
+    <p>Comprehensive care tailored to women’s unique health needs at every stage of life.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-female"></i>
+            </div>
+            <h3>Obstetrics & Gynecology</h3>
+            <p>Expert care for pregnancy, reproductive health, and gynecological conditions.</p>
+            <ul>
+                <li>Prenatal Care</li>
+                <li>High-Risk Pregnancy Management</li>
+                <li>Gynecologic Surgery</li>
+                <li>Menopause Management</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-ribbon"></i>
+            </div>
+            <h3>Breast Health</h3>
+            <p>Advanced screening and treatment for breast conditions, including cancer.</p>
+            <ul>
+                <li>Mammograms</li>
+                <li>Breast Cancer Treatment</li>
+                <li>Breast Reconstruction</li>
+                <li>Genetic Counseling</li>
+            </ul>
+        </div>
+    </div>
+</section><section class="geriatric-care-section">
+    <h2>Geriatric Care</h2>
+    <p>Specialized care to support the health and independence of older adults.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h3>Geriatric Medicine</h3>
+            <p>Comprehensive care for age-related conditions like dementia and osteoporosis.</p>
+            <ul>
+                <li>Memory Care</li>
+                <li>Fall Prevention</li>
+                <li>Chronic Disease Management</li>
+                <li>Palliative Care</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <h3>Senior Wellness Programs</h3>
+            <p>Programs to promote active aging and quality of life.</p>
+            <ul>
+                <li>Fitness Classes</li>
+                <li>Social Activities</li>
+                <li>Nutrition Counseling</li>
+                <li>Mental Health Support</li>
+            </ul>
+        </div>
+    </div>
+</section><section class="transplant-section">
+    <h2>Transplant Services</h2>
+    <p>World-class organ transplant programs with exceptional outcomes.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Heart Transplant</h3>
+            <p>Advanced care for patients requiring heart transplantation.</p>
+            <ul>
+                <li>Pre-Transplant Evaluation</li>
+                <li>Post-Transplant Care</li>
+                <li>Cardiac Rehabilitation</li>
+                <li>Immunosuppressive Therapy</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-liver"></i>
+            </div>
+            <h3>Liver & Kidney Transplant</h3>
+            <p>Expert transplant services for liver and kidney conditions.</p>
+            <ul>
+                <li>Living Donor Programs</li>
+                <li>Post-Transplant Monitoring</li>
+                <li>Transplant Surgery</li>
+                <li>Patient Education</li>
+            </ul>
+        </div>
+    </div>
+</section><section class="integrative-medicine-section">
+    <h2>Integrative Medicine</h2>
+    <p>Combining conventional and complementary therapies for holistic health.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-spa"></i>
+            </div>
+            <h3>Acupuncture</h3>
+            <p>Relieve pain and promote wellness with evidence-based acupuncture.</p>
+            <ul>
+                <li>Chronic Pain Relief</li>
+                <li>Stress Reduction</li>
+                <li>Migraine Treatment</li>
+                <li>Fertility Support</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-pray"></i>
+            </div>
+            <h3>Mindfulness & Meditation</h3>
+            <p>Programs to enhance mental clarity and emotional balance.</p>
+            <ul>
+                <li>Guided Meditation</li>
+                <li>Stress Management Classes</li>
+                <li>Mindfulness-Based Therapy</li>
+                <li>Breathing Exercises</li>
+            </ul>
+        </div>
+    </div>
+</section><section class="genomic-medicine-section">
+    <h2>Genomic Medicine</h2>
+    <p>Personalized healthcare based on your unique genetic profile.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-dna"></i>
+            </div>
+            <h3>Genetic Testing</h3>
+            <p>Identify genetic risks and customize treatment plans.</p>
+            <ul>
+                <li>Cancer Risk Assessment</li>
+                <li>Pharmacogenomics</li>
+                <li>Hereditary Disease Screening</li>
+                <li>Carrier Testing</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-vial"></i>
+            </div>
+            <h3>Precision Medicine</h3>
+            <p>Tailored therapies based on genetic and molecular insights.</p>
+            <ul>
+                <li>Targeted Cancer Therapies</li>
+                <li>Personalized Drug Plans</li>
+                <li>Gene Therapy Trials</li>
+                <li>Biomarker Analysis</li>
+            </ul>
+        </div>
+    </div>
+</section><section class="patient-education-section">
+    <h2>Patient Education & Support</h2>
+    <p>Empowering patients with knowledge and community support for better health outcomes.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <h3>Health Education Workshops</h3>
+            <p>Learn about managing chronic conditions and maintaining wellness.</p>
+            <ul>
+                <li>Diabetes Education</li>
+                <li>Heart Health Seminars</li>
+                <li>Cancer Prevention Workshops</li>
+                <li>Nutrition Classes</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Support Groups</h3>
+            <p>Connect with others facing similar health challenges.</p>
+            <ul>
+                <li>Cancer Support Groups</li>
+                <li>Chronic Illness Support</li>
+                <li>Parenting Support</li>
+                <li>Mental Health Groups</li>
+            </ul>
+        </div>
+    </div>
+</section>
+    </div>
+            <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-hospital"></i> Mayo Clinic</h3>
+                    <p>Providing world-class healthcare for over a century. Our mission is to inspire hope and contribute to health and well-being by providing the best care to every patient.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/home.html">Home</a></li>
+                        <li><a href="/service.html">Services</a></li>
+                        <li><a href="/review.html">Reviews</a></li>
+                        <li><a href="#">Doctors</a></li>
+                        <li><a href="#">Appointments</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Emergency Care</a></li>
+                        <li><a href="#">Primary Care</a></li>
+                        <li><a href="#">Specialty Care</a></li>
+                        <li><a href="#">Surgical Services</a></li>
+                        <li><a href="#">Mental Health</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 200 First St. SW, Rochester, MN 55905</p>
+                    <p><i class="fas fa-phone"></i> (507) 284-2511</p>
+                    <p><i class="fas fa-envelope"></i> info@mayoclinic.org</p>
+                    <p><i class="fas fa-clock"></i> Open 24/7</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mayo Clinic. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </footer>
+    
     <script src="app.js"></script>
 </body>
 </html>
