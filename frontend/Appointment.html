@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book an Appointment - Mayo Clinic</title>
+    <title>About Mayo Clinic</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,19 +11,24 @@
         :root { --primary: #3b82f6; --secondary: #10b981; --dark: #111827; }
         body { font-family: 'Inter', sans-serif; background: linear-gradient(to bottom right, var(--dark), #000); color: #f3f4f6; }
         .hero-section { position: relative; min-height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1584982751606-1b1a6d13ed6c') center/cover; }
+        .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3') center/cover; }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(17, 24, 39, 0.8), rgba(0, 0, 0, 0.9)); }
         .hero-content { position: relative; z-index: 2; max-width: 1200px; padding: 2rem; }
         .btn { padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; transition: all 0.3s; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-primary:hover { background: #2563eb; transform: translateY(-2px); }
-        .form-card { background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(10px); border-radius: 1rem; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s; }
-        .form-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .form-input { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; padding: 0.75rem; color: #f3f4f6; width: 100%; }
-        .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); }
-        .doctor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .doctor-card { background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(10px); border-radius: 1rem; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s; }
-        .doctor-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .stats-grid, .leadership-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .stat-card, .card { background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(10px); border-radius: 1rem; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s; }
+        .stat-card:hover, .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .timeline { position: relative; max-width: 1200px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 6px; background: var(--primary); top: 0; bottom: 0; left: 50%; margin-left: -3px; }
+        .timeline-item { padding: 10px 40px; position: relative; width: 50%; }
+        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; background: var(--primary); border: 3px solid var(--secondary); border-radius: 50%; top: 15px; }
+        .left { left: 0; }
+        .right { left: 50%; }
+        .left::after { right: -10px; }
+        .right::after { left: -10px; }
+        .timeline-content { padding: 1rem; background: rgba(31, 41, 55, 0.6); border-radius: 6px; }
         .footer { background: linear-gradient(to right, #0f172a, #1e293b); padding: 3rem 0; margin-top: 3rem; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
         .footer-column h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: white; }
@@ -43,9 +48,12 @@
         .back-to-top { position: fixed; bottom: 1.5rem; right: 1.5rem; width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .back-to-top:hover { background: #2563eb; }
         @media (max-width: 768px) {
-            .footer-content, .doctor-grid { grid-template-columns: 1fr; }
+            .footer-content, .leadership-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-            .form-card { padding: 1.5rem; }
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 18px; }
+            .right { left: 0%; }
         }
     </style>
 </head>
@@ -55,9 +63,9 @@
             <h2 class="text-2xl font-bold"><i class="fa-solid fa-hospital mr-2"></i>Mayo Clinic</h2>
             <div class="space-x-6">
                 <a href="/index.html" class="hover:text-white"><i class="fa-solid fa-house mr-1"></i>Home</a>
-                <a href="/about.html" class="hover:text-white"><i class="fa-solid fa-circle-info mr-1"></i>About</a>
+                <a href="#" class="text-blue-400 font-semibold"><i class="fa-solid fa-circle-info mr-1"></i>About</a>
                 <a href="/service.html" class="hover:text-white"><i class="fa-solid fa-stethoscope mr-1"></i>Services</a>
-                <a href="#" class="text-blue-400 font-semibold"><i class="fa-solid fa-calendar-check mr-1"></i>Appointment</a>
+                <a href="/appointment.html" class="hover:text-white"><i class="fa-solid fa-calendar-check mr-1"></i>Appointment</a>
                 <a href="/review.html" class="hover:text-white"><i class="fa-solid fa-star mr-1"></i>Review</a>
                 <a href="/logout.html" class="hover:text-white"><i class="fa-solid fa-right-from-bracket mr-1"></i>Logout</a>
             </div>
@@ -70,86 +78,127 @@
             <div class="hero-bg"></div>
             <div class="hero-overlay"></div>
             <div class="hero-content space-y-4">
-                <h1 class="text-4xl md:text-5xl font-bold">Book an Appointment</h1>
-                <p class="text-lg max-w-2xl mx-auto text-gray-300">Schedule your visit with our world-class medical team.</p>
+                <h1 class="text-4xl md:text-5xl font-bold">About Mayo Clinic</h1>
+                <p class="text-lg max-w-2xl mx-auto text-gray-300">Transforming medicine for over 150 years.</p>
             </div>
         </section>
 
-        <!-- Appointment Form -->
+        <!-- Mission & Values -->
         <section class="py-12">
             <div class="text-center space-y-4">
-                <h2 class="text-3xl font-semibold">Make an Appointment</h2>
-                <p class="text-lg max-w-2xl mx-auto">Fill out the form below to schedule your consultation.</p>
-                <div class="form-card max-w-2xl mx-auto">
-                    <form action="/submit-appointment" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium">Full Name</label>
-                            <input type="text" id="name" name="name" class="form-input" required placeholder="Enter your full name">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" required placeholder="Enter your email">
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-sm font-medium">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" required placeholder="Enter your phone number">
-                        </div>
-                        <div>
-                            <label for="specialty" class="block text-sm font-medium">Specialty</label>
-                            <select id="specialty" name="specialty" class="form-input" required>
-                                <option value="">Select a specialty</option>
-                                <option value="cardiology">Cardiology</option>
-                                <option value="neurology">Neurology</option>
-                                <option value="oncology">Oncology</option>
-                                <option value="pediatrics">Pediatrics</option>
-                                <option value="orthopedics">Orthopedics</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="date" class="block text-sm font-medium">Preferred Date</label>
-                            <input type="date" id="date" name="date" class="form-input" required>
-                        </div>
-                        <div>
-                            <label for="time" class="block text-sm font-medium">Preferred Time</label>
-                            <input type="time" id="time" name="time" class="form-input" required>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label for="message" class="block text-sm font-medium">Additional Information</label>
-                            <textarea id="message" name="message" class="form-input" rows="4" placeholder="Any specific concerns or requests"></textarea>
-                        </div>
-                        <div class="md:col-span-2 text-center">
-                            <button type="submit" class="btn btn-primary">Schedule Appointment</button>
-                        </div>
-                    </form>
+                <h2 class="text-3xl font-semibold">Our Mission</h2>
+                <p class="text-lg max-w-2xl mx-auto">Inspiring hope through integrated practice, education, and research.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div class="card">
+                        <i class="fa-solid fa-heart-circle-check text-2xl text-blue-400 mb-3"></i>
+                        <h3 class="text-lg font-semibold">Patient-Centered</h3>
+                        <p>Patients come first in our care.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fa-solid fa-lightbulb text-2xl text-blue-400 mb-3"></i>
+                        <h3 class="text-lg font-semibold">Innovation</h3>
+                        <p>Pioneering new treatments.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fa-solid fa-people-group text-2xl text-blue-400 mb-3"></i>
+                        <h3 class="text-lg font-semibold">Teamwork</h3>
+                        <p>Collaborative care for all.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Doctors -->
+        <!-- History Timeline -->
         <section class="py-12">
             <div class="text-center space-y-4">
-                <h2 class="text-3xl font-semibold">Meet Our Specialists</h2>
-                <p class="text-lg max-w-2xl mx-auto">Connect with our expert doctors for your care needs.</p>
-                <div class="doctor-grid">
-                    <div class="doctor-card text-center">
-                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d" onerror="this.src='https://ui-avatars.com/api/?name=Emily+Rodriguez&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. Emily Rodriguez">
-                        <h3 class="text-lg font-semibold">Dr. Emily Rodriguez</h3>
-                        <p class="text-blue-400">Cardiothoracic Surgery</p>
+                <h2 class="text-3xl font-semibold">Our History</h2>
+                <p class="text-lg max-w-2xl mx-auto">A legacy of medical excellence.</p>
+                <div class="timeline mt-8">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3 class="font-semibold">1864</h3>
+                            <p>Dr. William W. Mayo begins practice in Rochester.</p>
+                        </div>
                     </div>
-                    <div class="doctor-card text-center">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" onerror="this.src='https://ui-avatars.com/api/?name=James+Wilson&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. James Wilson">
-                        <h3 class="text-lg font-semibold">Dr. James Wilson</h3>
-                        <p class="text-blue-400">Oncology</p>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3 class="font-semibold">1889</h3>
+                            <p>Mayo Clinic founded by Dr. Mayo and sons.</p>
+                        </div>
                     </div>
-                    <div class="doctor-card text-center">
-                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f" onerror="this.src='https://ui-avatars.com/api/?name=Sarah+Johnson&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. Sarah Johnson">
-                        <h3 class="text-lg font-semibold">Dr. Sarah Johnson</h3>
-                        <p class="text-blue-400">Neurology</p>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3 class="font-semibold">1915</h3>
+                            <p>Mayo Foundation established.</p>
+                        </div>
                     </div>
-                    <div class="doctor-card text-center">
-                        <img src="https://images.unsplash.com/photo-1579165466949-3180a3d05728" onerror="this.src='https://ui-avatars.com/api/?name=Michael+Chen&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. Michael Chen">
-                        <h3 class="text-lg font-semibold">Dr. Michael Chen</h3>
-                        <p class="text-blue-400">Orthopedic Surgery</p>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3 class="font-semibold">1986</h3>
+                            <p>Ranked #1 by U.S. News.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3 class="font-semibold">2023</h3>
+                            <p>#1 hospital worldwide for 7th year.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership -->
+        <section class="py-12">
+            <div class="text-center space-y-4">
+                <h2 class="text-3xl font-semibold">Our Leadership</h2>
+                <p class="text-lg max-w-2xl mx-auto">Experts guiding the future of medicine.</p>
+                <div class="leadership-grid">
+                    <div class="card text-center">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d" onerror="this.src='https://ui-avatars.com/api/?name=Gianrico+Farrugia&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. Gianrico Farrugia">
+                        <h3 class="text-lg font-semibold">Dr. Gianrico Farrugia</h3>
+                        <p class="text-blue-400">President & CEO</p>
+                    </div>
+                    <div class="card text-center">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" onerror="this.src='https://ui-avatars.com/api/?name=Robert+Cima&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. Robert R. Cima">
+                        <h3 class="text-lg font-semibold">Dr. Robert R. Cima</h3>
+                        <p class="text-blue-400">Chief Medical Officer</p>
+                    </div>
+                    <div class="card text-center">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f" onerror="this.src='https://ui-avatars.com/api/?name=Denise+Hynes&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. Denise M. Hynes">
+                        <h3 class="text-lg font-semibold">Dr. Denise M. Hynes</h3>
+                        <p class="text-blue-400">Chief Research Officer</p>
+                    </div>
+                    <div class="card text-center">
+                        <img src="https://images.unsplash.com/photo-1579165466949-3180a3d05728" onerror="this.src='https://ui-avatars.com/api/?name=Amy+Williams&background=3b82f6&color=fff&size=128'" class="w-24 h-24 mx-auto rounded-full mb-3 object-cover" alt="Dr. Amy W. Williams">
+                        <h3 class="text-lg font-semibold">Dr. Amy W. Williams</h3>
+                        <p class="text-blue-400">Chief Clinical Officer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="py-12">
+            <div class="text-center space-y-4">
+                <h2 class="text-3xl font-semibold">By The Numbers</h2>
+                <p class="text-lg max-w-2xl mx-auto">Our impact in healthcare and research.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="text-3xl font-bold text-blue-400">76K+</div>
+                        <p>Staff members worldwide</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-3xl font-bold text-blue-400">1.3M+</div>
+                        <p>Patients treated annually</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-3xl font-bold text-blue-400">4,700+</div>
+                        <p>Research studies conducted</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-3xl font-bold text-blue-400">3</div>
+                        <p>Major U.S. campuses</p>
                     </div>
                 </div>
             </div>
