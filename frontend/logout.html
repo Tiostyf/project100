@@ -5,7 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logout | AccountHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="logout.css"> <!-- optional external CSS -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #6e8efb, #a777e3); color: #333; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .container { width: 100%; max-width: 450px; }
+        .logo { text-align: center; margin-bottom: 30px; }
+        .logo h1 { color: white; font-size: 2.8rem; font-weight: 700; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
+        .logo span { color: #ffd166; }
+        .card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); backdrop-filter: blur(10px); animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .card-header { text-align: center; margin-bottom: 30px; }
+        .card-header h2 { font-size: 28px; color: #333; margin-bottom: 10px; font-weight: 600; }
+        .card-header p { color: #666; font-size: 16px; }
+        .user-info { display: flex; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 12px; margin-bottom: 25px; }
+        .avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #6e8efb, #a777e3); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: 600; margin-right: 15px; }
+        .user-details h3 { font-size: 18px; margin-bottom: 5px; color: #333; }
+        .user-details p { color: #666; font-size: 14px; }
+        .additional-info { background: #f8f9fa; padding: 15px; border-radius: 12px; margin-bottom: 25px; }
+        .info-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
+        .info-item:last-child { border-bottom: none; }
+        .info-label { font-weight: 500; color: #555; }
+        .info-value { color: #333; }
+        .btn-container { display: flex; flex-direction: column; gap: 15px; }
+        .btn { padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-logout { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3); }
+        .btn-logout:hover { background: linear-gradient(135deg, #ff5252, #ff7b7b); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4); }
+        .btn-cancel { background: #f8f9fa; color: #666; border: 1px solid #e9ecef; }
+        .btn-cancel:hover { background: #e9ecef; transform: translateY(-2px); }
+        .card-footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .card-footer p { color: #666; font-size: 14px; }
+        .card-footer a { color: #6e8efb; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .card-footer a:hover { color: #a777e3; text-decoration: underline; }
+        @media (max-width: 480px) { .card { padding: 25px; } .logo h1 { font-size: 2.2rem; } .card-header h2 { font-size: 24px; } }
+    </style>
 </head>
 <body>
     <div class="logo">
@@ -20,25 +52,25 @@
             </div>
             
             <div class="user-info">
-                <div class="avatar" id="userAvatar">JD</div>
+                <div class="avatar" id="userAvatar"></div>
                 <div class="user-details">
-                    <h3 id="userName">John Doe</h3>
-                    <p id="userEmail">john.doe@example.com</p>
+                    <h3 id="userName"></h3>
+                    <p id="userEmail"></p>
                 </div>
             </div>
             
             <div class="additional-info">
                 <div class="info-item">
                     <span class="info-label">Login Time:</span>
-                    <span class="info-value" id="loginTime">Today, 10:30 AM</span>
+                    <span class="info-value" id="loginTime"></span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Session Duration:</span>
-                    <span class="info-value" id="sessionDuration">2 hours 15 minutes</span>
+                    <span class="info-value" id="sessionDuration"></span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Last Activity:</span>
-                    <span class="info-value" id="lastActivity">5 minutes ago</span>
+                    <span class="info-value" id="lastActivity"></span>
                 </div>
             </div>
             
@@ -59,7 +91,58 @@
         </div>
     </div>
 
-    <!-- External JS -->
-    <script src="app.js"></script>
+    <script>
+        // Fetch user details dynamically from localStorage
+        function formatDateTime(date) {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function timeDifference(earlierDate, laterDate) {
+            const diffMs = laterDate - earlierDate;
+            const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            return `${diffHrs} hours ${diffMins} minutes`;
+        }
+
+        function updateUserInfo() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData) return;
+
+            // Populate avatar, name, email
+            document.getElementById('userAvatar').textContent = userData.avatarInitials || '';
+            document.getElementById('userName').textContent = userData.name || '';
+            document.getElementById('userEmail').textContent = userData.email || '';
+
+            const loginTime = new Date(userData.loginTime);
+            const lastActivity = new Date(userData.lastActivity);
+            const now = new Date();
+
+            document.getElementById('loginTime').textContent = loginTime ? `Today, ${formatDateTime(loginTime)}` : '';
+            document.getElementById('sessionDuration').textContent = loginTime ? timeDifference(loginTime, now) : '';
+            document.getElementById('lastActivity').textContent = lastActivity ? `${Math.floor((now - lastActivity) / (1000 * 60))} minutes ago` : '';
+        }
+
+        function handleLogout() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+            logoutBtn.disabled = true;
+
+            setTimeout(() => {
+                localStorage.removeItem('userData');
+                alert('You have been successfully logged out.');
+                window.location.href = 'login.html';
+            }, 1500);
+        }
+
+        function handleCancel() { window.history.back(); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUserInfo();
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            document.getElementById('cancelBtn').addEventListener('click', handleCancel);
+            setInterval(updateUserInfo, 60000);
+        });
+    </script>
 </body>
 </html>
+
