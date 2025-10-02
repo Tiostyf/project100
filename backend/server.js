@@ -210,6 +210,15 @@ app.get('/review.html', authenticateToken, (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/review.html'));
 });
 
+// Added routes
+app.get('/about.html', authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/About.html'));
+});
+
+app.get('/appointment.html', authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/Appointment.html'));
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
