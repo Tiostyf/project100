@@ -222,3 +222,80 @@ document.addEventListener('DOMContentLoaded', () => {
         loadReviews();
     }
 });
+// Default user data (fallback)
+const defaultUser = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    loginTime: new Date(Date.now() - 2 * 60 * 60 * 1000 - 15 * 60 * 1000),
+    lastActivity: new Date(Date.now() - 5 * 60 * 1000)
+};
+
+// Get user data from localStorage or fallback
+function getUserData() {
+    const stored = JSON.parse(localStorage.getItem('userData'));
+    return stored || defaultUser;
+}
+
+// Generate initials
+function getInitials(name) {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+}
+
+// Format time
+function formatTime(date) {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// Calculate session duration
+function timeDifference(start, end) {
+    const diffMs = end - start;
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const mins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    return `${hours} hours ${mins} minutes`;
+}
+
+// Update UI
+function updateUserInfo() {
+    const user = getUserData();
+    document.getElementById('userName').textContent = user.name;
+    document.getElementById('userEmail').textContent = user.email;
+    document.getElementById('userAvatar').textContent = getInitials(user.name);
+
+    const now = new Date();
+    document.getElementById('loginTime').textContent = `Today, ${formatTime(new Date(user.loginTime))}`;
+    document.getElementById('sessionDuration').textContent = timeDifference(new Date(user.loginTime), now);
+    const minsAgo = Math.floor((now - new Date(user.lastActivity)) / (1000 * 60));
+    document.getElementById('lastActivity').textContent = `${minsAgo} minutes ago`;
+}
+
+// Logout
+function handleLogout() {
+    const btn = document.getElementById('logoutBtn');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+        localStorage.removeItem('userData');
+        window.location.href = 'login.html';
+    }, 1500);
+}
+
+// Cancel
+function handleCancel() {
+    window.history.back();
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Save default user if none exists
+    if (!localStorage.getItem('userData')) {
+        localStorage.setItem('userData', JSON.stringify(defaultUser));
+    }
+
+    updateUserInfo();
+
+    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+    document.getElementById('cancelBtn').addEventListener('click', handleCancel);
+
+    setInterval(updateUserInfo, 60000); // update session duration every minute
+});
