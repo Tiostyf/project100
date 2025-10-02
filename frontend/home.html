@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors - Mayo Clinic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #e0e0e0; background: #0a0a0a; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center; padding: 16px 0;
+            background: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .nav-brand h2 { color: #60a5fa; font-size: 1.8rem; font-weight: 800; }
+        .nav-brand i { margin-right: 8px; color: #60a5fa; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-link { text-decoration: none; color: #b0b0b0; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-link:hover, .nav-link.active { color: #60a5fa; }
+        .page-header { text-align: center; margin: 40px 0; }
+        .page-header h1 { color: #60a5fa; font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; }
+        .page-header p { color: #b0b0b0; max-width: 600px; margin: 0 auto; font-size: 1rem; }
+        .doctors-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 60px;
+        }
+        .doctor-card {
+            background: rgba(30, 30, 30, 0.95); border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s; overflow: hidden;
+        }
+        .doctor-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
+        .doctor-card img { width: 100%; height: 200px; object-fit: cover; }
+        .doctor-info { padding: 16px; }
+        .doctor-info h3 { color: #60a5fa; font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
+        .specialty { color: #93c5fd; font-size: 0.95rem; font-weight: 500; margin-bottom: 8px; }
+        .bio { color: #e5e7eb; font-size: 0.9rem; margin-bottom: 12px; }
+        .doctor-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: #b0b0b0; }
+        .doctor-meta i { margin-right: 6px; color: #60a5fa; }
+        .footer {
+            background: linear-gradient(135deg, #1e40af 0%, #003087 100%); color: #fff; padding: 48px 20px; margin-top: 60px;
+        }
+        .footer-top {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; max-width: 1280px; margin: 0 auto 32px;
+        }
+        .footer-column h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; color: #fff; }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 10px; }
+        .footer-column ul li a { color: #d1d5db; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .footer-column ul li a:hover { color: #facc15; }
+        .social-links { display: flex; gap: 14px; }
+        .social-links a {
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%; color: #fff; font-size: 1.1rem; transition: background 0.3s;
+        }
+        .social-links a:hover { background: #facc15; color: #1e40af; }
+        .newsletter-form { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+        .newsletter-form input { padding: 12px; border: none; border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: #e0e0e0; }
+        .newsletter-form input:focus { outline: none; box-shadow: 0 0 0 2px #facc15; }
+        .newsletter-form button {
+            padding: 12px; border: none; border-radius: 8px; background: #facc15; color: #1e40af; font-weight: 600; cursor: pointer;
+        }
+        .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.15); }
+        .footer-logo h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+        .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
+        .footer-links a { color: #d1d5db; font-size: 0.9rem; text-decoration: none; }
+        .footer-links a:hover { color: #facc15; }
+        .footer-bottom p { font-size: 0.85rem; color: #b0b0b0; }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 12px; padding: 12px 0; }
+            .page-header h1 { font-size: 2rem; }
+            .doctors-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .page-header h1 { font-size: 1.6rem; }
+            .doctor-info h3 { font-size: 1.1rem; }
+            .specialty { font-size: 0.9rem; }
+            .footer-column h3 { font-size: 1.1rem; }
+            .social-links a { width: 36px; height: 36px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2><i class="fas fa-hospital"></i> Mayo Clinic</h2>
+            </div>
+            <div class="nav-links">
+                <a href="/home.html" class="nav-link active">Doctors</a>
+                <a href="/service.html" class="nav-link">Services</a>
+                <a href="/review.html" class="nav-link">Reviews</a>
+                <a href="#" id="logoutBtn" class="nav-link">Logout</a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h1>Our Medical Team</h1>
+            <p>Leaders in their specialties, delivering compassionate care.</p>
+        </div>
+
+        <div class="doctors-grid">
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d" onerror="this.src='https://ui-avatars.com/api/?name=Emily+Rodriguez&background=3b82f6&color=fff&size=200'" alt="Dr. Emily Rodriguez">
+                <div class="doctor-info">
+                    <h3>Dr. Emily Rodriguez</h3>
+                    <p class="specialty">Cardiothoracic Surgery</p>
+                    <p class="bio">Expert in complex heart procedures.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Harvard</span>
+                        <span><i class="fas fa-star"></i> 4.9 (247)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" onerror="this.src='https://ui-avatars.com/api/?name=James+Wilson&background=3b82f6&color=fff&size=200'" alt="Dr. James Wilson">
+                <div class="doctor-info">
+                    <h3>Dr. James Wilson</h3>
+                    <p class="specialty">Oncology</p>
+                    <p class="bio">Pioneer in cancer therapies.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Johns Hopkins</span>
+                        <span><i class="fas fa-star"></i> 4.8 (192)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f" onerror="this.src='https://ui-avatars.com/api/?name=Sarah+Johnson&background=3b82f6&color=fff&size=200'" alt="Dr. Sarah Johnson">
+                <div class="doctor-info">
+                    <h3>Dr. Sarah Johnson</h3>
+                    <p class="specialty">Neurology</p>
+                    <p class="bio">Treats neurological disorders.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Stanford</span>
+                        <span><i class="fas fa-star"></i> 4.9 (215)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1579165466949-3180a3d05728" onerror="this.src='https://ui-avatars.com/api/?name=Michael+Chen&background=3b82f6&color=fff&size=200'" alt="Dr. Michael Chen">
+                <div class="doctor-info">
+                    <h3>Dr. Michael Chen</h3>
+                    <p class="specialty">Orthopedic Surgery</p>
+                    <p class="bio">Specializes in joint replacement.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Mayo Clinic</span>
+                        <span><i class="fas fa-star"></i> 4.7 (178)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1622253692010-333f2b7c2a34" onerror="this.src='https://ui-avatars.com/api/?name=Laura+Kim&background=3b82f6&color=fff&size=200'" alt="Dr. Laura Kim">
+                <div class="doctor-info">
+                    <h3>Dr. Laura Kim</h3>
+                    <p class="specialty">Pediatrics</p>
+                    <p class="bio">Focuses on child health.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> UCLA</span>
+                        <span><i class="fas fa-star"></i> 4.8 (201)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1579684453423-8a6b4002f372" onerror="this.src='https://ui-avatars.com/api/?name=David+Patel&background=3b82f6&color=fff&size=200'" alt="Dr. David Patel">
+                <div class="doctor-info">
+                    <h3>Dr. David Patel</h3>
+                    <p class="specialty">Endocrinology</p>
+                    <p class="bio">Manages diabetes and hormones.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Yale</span>
+                        <span><i class="fas fa-star"></i> 4.7 (184)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1580281658626-777fb0c00f25" onerror="this.src='https://ui-avatars.com/api/?name=Anna+Lee&background=3b82f6&color=fff&size=200'" alt="Dr. Anna Lee">
+                <div class="doctor-info">
+                    <h3>Dr. Anna Lee</h3>
+                    <p class="specialty">Pulmonology</p>
+                    <p class="bio">Treats respiratory diseases.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Columbia</span>
+                        <span><i class="fas fa-star"></i> 4.9 (230)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1585435557343-849c41e76f9c" onerror="this.src='https://ui-avatars.com/api/?name=Robert+Nguyen&background=3b82f6&color=fff&size=200'" alt="Dr. Robert Nguyen">
+                <div class="doctor-info">
+                    <h3>Dr. Robert Nguyen</h3>
+                    <p class="specialty">Gastroenterology</p>
+                    <p class="bio">Expert in digestive health.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Chicago</span>
+                        <span><i class="fas fa-star"></i> 4.8 (195)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1598887142794-8d1e63a524a8" onerror="this.src='https://ui-avatars.com/api/?name=Lisa+Carter&background=3b82f6&color=fff&size=200'" alt="Dr. Lisa Carter">
+                <div class="doctor-info">
+                    <h3>Dr. Lisa Carter</h3>
+                    <p class="specialty">Dermatology</p>
+                    <p class="bio">Treats skin cancer.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> NYU</span>
+                        <span><i class="fas fa-star"></i> 4.7 (188)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" onerror="this.src='https://ui-avatars.com/api/?name=Thomas+Brooks&background=3b82f6&color=fff&size=200'" alt="Dr. Thomas Brooks">
+                <div class="doctor-info">
+                    <h3>Dr. Thomas Brooks</h3>
+                    <p class="specialty">Ophthalmology</p>
+                    <p class="bio">Expert in cataract surgery.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Duke</span>
+                        <span><i class="fas fa-star"></i> 4.9 (210)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1576091160550-3a5a1e3b1e5c" onerror="this.src='https://ui-avatars.com/api/?name=Sophia+Martinez&background=3b82f6&color=fff&size=200'" alt="Dr. Sophia Martinez">
+                <div class="doctor-info">
+                    <h3>Dr. Sophia Martinez</h3>
+                    <p class="specialty">Rheumatology</p>
+                    <p class="bio">Manages autoimmune diseases.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Penn</span>
+                        <span><i class="fas fa-star"></i> 4.8 (197)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d" onerror="this.src='https://ui-avatars.com/api/?name=William+Foster&background=3b82f6&color=fff&size=200'" alt="Dr. William Foster">
+                <div class="doctor-info">
+                    <h3>Dr. William Foster</h3>
+                    <p class="specialty">Urology</p>
+                    <p class="bio">Expert in prostate health.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Cornell</span>
+                        <span><i class="fas fa-star"></i> 4.7 (182)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1598257006458-087b82a5c9c8" onerror="this.src='https://ui-avatars.com/api/?name=Olivia+Grant&background=3b82f6&color=fff&size=200'" alt="Dr. Olivia Grant">
+                <div class="doctor-info">
+                    <h3>Dr. Olivia Grant</h3>
+                    <p class="specialty">Psychiatry</p>
+                    <p class="bio">Focuses on mental health.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Michigan</span>
+                        <span><i class="fas fa-star"></i> 4.8 (205)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1576091160397-57d8a781c66b" onerror="this.src='https://ui-avatars.com/api/?name=Henry+Kim&background=3b82f6&color=fff&size=200'" alt="Dr. Henry Kim">
+                <div class="doctor-info">
+                    <h3>Dr. Henry Kim</h3>
+                    <p class="specialty">Nephrology</p>
+                    <p class="bio">Manages kidney diseases.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> UCSF</span>
+                        <span><i class="fas fa-star"></i> 4.9 (220)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54" onerror="this.src='https://ui-avatars.com/api/?name=Emma+Davis&background=3b82f6&color=fff&size=200'" alt="Dr. Emma Davis">
+                <div class="doctor-info">
+                    <h3>Dr. Emma Davis</h3>
+                    <p class="specialty">Hematology</p>
+                    <p class="bio">Treats blood disorders.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Boston U.</span>
+                        <span><i class="fas fa-star"></i> 4.8 (190)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1580281658626-777fb0c00f25" onerror="this.src='https://ui-avatars.com/api/?name=Benjamin+Lee&background=3b82f6&color=fff&size=200'" alt="Dr. Benjamin Lee">
+                <div class="doctor-info">
+                    <h3>Dr. Benjamin Lee</h3>
+                    <p class="specialty">Cardiology</p>
+                    <p class="bio">Prevents heart disease.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Emory</span>
+                        <span><i class="fas fa-star"></i> 4.9 (225)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1598257006458-087b82a5c9c8" onerror="this.src='https://ui-avatars.com/api/?name=Rachel+Adams&background=3b82f6&color=fff&size=200'" alt="Dr. Rachel Adams">
+                <div class="doctor-info">
+                    <h3>Dr. Rachel Adams</h3>
+                    <p class="specialty">Obstetrics & Gynecology</p>
+                    <p class="bio">Manages high-risk pregnancies.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Washington</span>
+                        <span><i class="fas fa-star"></i> 4.8 (200)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1576091160550-3a5a1e3b1e5c" onerror="this.src='https://ui-avatars.com/api/?name=Daniel+Park&background=3b82f6&color=fff&size=200'" alt="Dr. Daniel Park">
+                <div class="doctor-info">
+                    <h3>Dr. Daniel Park</h3>
+                    <p class="specialty">Radiology</p>
+                    <p class="bio">Expert in diagnostic imaging.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Texas</span>
+                        <span><i class="fas fa-star"></i> 4.7 (185)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d" onerror="this.src='https://ui-avatars.com/api/?name=Claire+Thompson&background=3b82f6&color=fff&size=200'" alt="Dr. Claire Thompson">
+                <div class="doctor-info">
+                    <h3>Dr. Claire Thompson</h3>
+                    <p class="specialty">Anesthesiology</p>
+                    <p class="bio">Manages pain in surgeries.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> Vanderbilt</span>
+                        <span><i class="fas fa-star"></i> 4.8 (193)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f" onerror="this.src='https://ui-avatars.com/api/?name=Ethan+Brown&background=3b82f6&color=fff&size=200'" alt="Dr. Ethan Brown">
+                <div class="doctor-info">
+                    <h3>Dr. Ethan Brown</h3>
+                    <p class="specialty">Infectious Diseases</p>
+                    <p class="bio">Manages global health issues.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> UNC</span>
+                        <span><i class="fas fa-star"></i> 4.9 (208)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1585435557343-849c41e76f9c" onerror="this.src='https://ui-avatars.com/api/?name=Natalie+Wright&background=3b82f6&color=fff&size=200'" alt="Dr. Natalie Wright">
+                <div class="doctor-info">
+                    <h3>Dr. Natalie Wright</h3>
+                    <p class="specialty">Allergy & Immunology</p>
+                    <p class="bio">Manages allergies.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Colorado</span>
+                        <span><i class="fas fa-star"></i> 4.7 (175)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1579684453423-8a6b4002f372" onerror="this.src='https://ui-avatars.com/api/?name=Alexander+Scott&background=3b82f6&color=fff&size=200'" alt="Dr. Alexander Scott">
+                <div class="doctor-info">
+                    <h3>Dr. Alexander Scott</h3>
+                    <p class="specialty">Plastic Surgery</p>
+                    <p class="bio">Performs reconstructive surgery.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Miami</span>
+                        <span><i class="fas fa-star"></i> 4.8 (198)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1598887142794-8d1e63a524a8" onerror="this.src='https://ui-avatars.com/api/?name=Victoria+Lopez&background=3b82f6&color=fff&size=200'" alt="Dr. Victoria Lopez">
+                <div class="doctor-info">
+                    <h3>Dr. Victoria Lopez</h3>
+                    <p class="specialty">Geriatrics</p>
+                    <p class="bio">Improves elderly care.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Wisconsin</span>
+                        <span><i class="fas fa-star"></i> 4.9 (212)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" onerror="this.src='https://ui-avatars.com/api/?name=Christopher+Hall&background=3b82f6&color=fff&size=200'" alt="Dr. Christopher Hall">
+                <div class="doctor-info">
+                    <h3>Dr. Christopher Hall</h3>
+                    <p class="specialty">Vascular Surgery</p>
+                    <p class="bio">Treats vascular diseases.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Virginia</span>
+                        <span><i class="fas fa-star"></i> 4.8 (189)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1576091160397-57d8a781c66b" onerror="this.src='https://ui-avatars.com/api/?name=Isabella+Green&background=3b82f6&color=fff&size=200'" alt="Dr. Isabella Green">
+                <div class="doctor-info">
+                    <h3>Dr. Isabella Green</h3>
+                    <p class="specialty">Endocrinology</p>
+                    <p class="bio">Manages thyroid disorders.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> USC</span>
+                        <span><i class="fas fa-star"></i> 4.7 (180)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54" onerror="this.src='https://ui-avatars.com/api/?name=Jonathan+King&background=3b82f6&color=fff&size=200'" alt="Dr. Jonathan King">
+                <div class="doctor-info">
+                    <h3>Dr. Jonathan King</h3>
+                    <p class="specialty">Neurosurgery</p>
+                    <p class="bio">Performs brain surgery.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Pittsburgh</span>
+                        <span><i class="fas fa-star"></i> 4.9 (218)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1585435557343-849c41e76f9c" onerror="this.src='https://ui-avatars.com/api/?name=Ava+White&background=3b82f6&color=fff&size=200'" alt="Dr. Ava White">
+                <div class="doctor-info">
+                    <h3>Dr. Ava White</h3>
+                    <p class="specialty">Family Medicine</p>
+                    <p class="bio">Focuses on preventive care.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Minnesota</span>
+                        <span><i class="fas fa-star"></i> 4.8 (203)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1598257006458-087b82a5c9c8" onerror="this.src='https://ui-avatars.com/api/?name=Matthew+Young&background=3b82f6&color=fff&size=200'" alt="Dr. Matthew Young">
+                <div class="doctor-info">
+                    <h3>Dr. Matthew Young</h3>
+                    <p class="specialty">Pathology</p>
+                    <p class="bio">Detects cancer.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Iowa</span>
+                        <span><i class="fas fa-star"></i> 4.7 (187)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1579684453423-8a6b4002f372" onerror="this.src='https://ui-avatars.com/api/?name=Sofia+Clark&background=3b82f6&color=fff&size=200'" alt="Dr. Sofia Clark">
+                <div class="doctor-info">
+                    <h3>Dr. Sofia Clark</h3>
+                    <p class="specialty">Otolaryngology</p>
+                    <p class="bio">Treats ENT disorders.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Florida</span>
+                        <span><i class="fas fa-star"></i> 4.8 (196)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" onerror="this.src='https://ui-avatars.com/api/?name=Lucas+Evans&background=3b82f6&color=fff&size=200'" alt="Dr. Lucas Evans">
+                <div class="doctor-info">
+                    <h3>Dr. Lucas Evans</h3>
+                    <p class="specialty">Sports Medicine</p>
+                    <p class="bio">Manages athletic injuries.</p>
+                    <div class="doctor-meta">
+                        <span><i class="fas fa-graduation-cap"></i> U. Oregon</span>
+                        <span><i class="fas fa-star"></i> 4.9 (214)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Mission</a></li>
+                        <li><a href="#">History</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Find a Doctor</a></li>
+                        <li><a href="#">Appointments</a></li>
+                        <li><a href="#">Billing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Locations</h3>
+                    <ul>
+                        <li><a href="#">Rochester, MN</a></li>
+                        <li><a href="#">Phoenix, AZ</a></li>
+                        <li><a href="#">Jacksonville, FL</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter email" aria-label="Newsletter signup">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logo">
+                    <h2><i class="fas fa-hospital"></i> Mayo Clinic</h2>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Accessibility</a>
+                </div>
+                <p>&copy; 2025 Mayo Clinic. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

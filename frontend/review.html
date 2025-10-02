@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - Mayo Clinic</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1>Your Voice Matters</h1>
+            <p>Share and read experiences to enhance our world-class healthcare.</p>
+            <a href="#reviewForm" class="hero-btn">Share Your Story</a>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <h2><i class="fas fa-hospital"></i> Mayo Clinic</h2>
+            <div class="nav-links">
+                <a href="/home.html" class="nav-link">Doctors</a>
+                <a href="/service.html" class="nav-link">Services</a>
+                <a href="/review.html" class="nav-link active">Reviews</a>
+                <a href="#" id="logoutBtn" class="nav-link">Logout</a>
+            </div>
+        </nav>
+
+        <!-- Review Form -->
+        <section class="review-container">
+            <h1>Share Your Experience</h1>
+            <p>Your feedback helps us improve Mayo Clinic services.</p>
+            <div class="review-form-card">
+                <h2>Submit Your Review</h2>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="description">Your Experience</label>
+                        <textarea id="description" name="description" rows="5" required placeholder="Tell us about your experience..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <select id="rating" name="rating" required>
+                            <option value="">Select a rating</option>
+                            <option value="5">5 Stars - Excellent</option>
+                            <option value="4">4 Stars - Very Good</option>
+                            <option value="3">3 Stars - Good</option>
+                            <option value="2">2 Stars - Fair</option>
+                            <option value="1">1 Star - Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Profile Image URL (optional)</label>
+                        <input type="url" id="image" name="image" placeholder="https://example.com/your-image.jpg">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+
+            <!-- Patient Reviews -->
+            <div class="reviews-list">
+                <h2>Patient Reviews</h2>
+                <div id="reviewsContainer">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <i class="fas fa-heartbeat"></i>
+                            <h3>Cardiology Care</h3>
+                        </div>
+                        <p>"Exceptional team, clear explanations, and personalized treatment."</p>
+                        <div class="review-footer">
+                            <span class="rating">★★★★★</span>
+                            <span class="reviewer">– Jane D.</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <i class="fas fa-dna"></i>
+                            <h3>Oncology Support</h3>
+                        </div>
+                        <p>"Compassionate care and cutting-edge therapies gave me hope."</p>
+                        <div class="review-footer">
+                            <span class="rating">★★★★☆</span>
+                            <span class="reviewer">– Michael S.</span>
+                        </div>
+                    </div>
+                    <!-- Other reviews condensed similarly -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <i class="fas fa-brain"></i>
+                            <h3>Neurology Expertise</h3>
+                        </div>
+                        <p>"Unmatched expertise in managing my epilepsy."</p>
+                        <div class="review-footer">
+                            <span class="rating">★★★★★</span>
+                            <span class="reviewer">– Sarah L.</span>
+                        </div>
+                    </div>
+                    <!-- Add remaining reviews as needed -->
+                </div>
+            </div>
+
+            <!-- Hospital Management Reviews -->
+            <div class="management-reviews">
+                <h2>Hospital Management Feedback</h2>
+                <div class="reviews-list">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <i class="fas fa-users-cog"></i>
+                            <h3>Administrative Efficiency</h3>
+                        </div>
+                        <p>"Seamless scheduling and organized staff."</p>
+                        <div class="review-footer">
+                            <span class="rating">★★★★★</span>
+                            <span class="reviewer">– Thomas R.</span>
+                        </div>
+                    </div>
+                    <!-- Add other management reviews similarly -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback Statistics -->
+        <section class="feedback-stats-section">
+            <h2>Feedback at a Glance</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>95%</h3>
+                    <p>Rate care as Excellent or Very Good</p>
+                </div>
+                <div class="stat-card">
+                    <h3>98%</h3>
+                    <p>Recommend Mayo Clinic</p>
+                </div>
+                <div class="stat-card">
+                    <h3>90%</h3>
+                    <p>Seamless administrative processes</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Spotlight -->
+        <section class="testimonial-spotlight">
+            <h2>Featured Testimonial</h2>
+            <div class="testimonial-card">
+                <p>"Life-changing cardiology care with compassionate staff."</p>
+                <div class="testimonial-footer">
+                    <span class="reviewer">– Karen W.</span>
+                    <span class="rating">★★★★★</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Feedback -->
+        <section class="contact-feedback-section">
+            <h2>Contact Us</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">Name</label>
+                    <input type="text" id="contact-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Feedback</label>
+                    <textarea id="contact-message" placeholder="Share your thoughts" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Feedback</button>
+            </form>
+        </section>
+
+        <!-- Mission and Values -->
+        <section class="mission-values-section">
+            <h2>Our Mission</h2>
+            <p>Inspiring hope and promoting health through integrated practice, education, and research.</p>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Compassion</h3>
+                    <p>Empathetic, patient-centered care.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-star"></i>
+                    <h3>Excellence</h3>
+                    <p>Highest standards in care and research.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Teamwork</h3>
+                    <p>Collaborative, comprehensive care.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Outreach -->
+        <section class="community-outreach-section">
+            <h2>Community Outreach</h2>
+            <div class="outreach-grid">
+                <div class="outreach-card">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Health Workshops</h3>
+                    <p>Free education on diabetes, heart health, and more.</p>
+                </div>
+                <!-- Add other outreach programs similarly -->
+            </div>
+        </section>
+
+        <!-- Patient Support -->
+        <section class="patient-support-section">
+            <h2>Patient Support</h2>
+            <div class="support-grid">
+                <div class="support-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Support Groups</h3>
+                    <p>Connect with others facing similar challenges.</p>
+                </div>
+                <!-- Add other support services similarly -->
+            </div>
+        </section>
+
+        <!-- Facilities -->
+        <section class="facilities-section">
+            <h2>Our Facilities</h2>
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <i class="fas fa-hospital-alt"></i>
+                    <h3>Surgical Suites</h3>
+                    <p>Cutting-edge technology for advanced procedures.</p>
+                </div>
+                <!-- Add other facilities similarly -->
+            </div>
+        </section>
+
+        <!-- Sustainability -->
+        <section class="sustainability-section">
+            <h2>Sustainability</h2>
+            <div class="sustainability-grid">
+                <div class="sustainability-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Green Energy</h3>
+                    <p>Renewable energy to reduce emissions.</p>
+                </div>
+                <!-- Add other sustainability initiatives similarly -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h3><i class="fas fa-hospital"></i> Mayo Clinic</h3>
+                    <p>Exceptional care and research since 1889.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/home.html">Find a Doctor</a></li>
+                        <li><a href="/service.html">Services</a></li>
+                        <li><a href="/review.html">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 200 First St. SW, Rochester, MN 55905</p>
+                    <p><i class="fas fa-phone"></i> (507) 284-2511</p>
+                    <p><i class="fas fa-envelope"></i> info@mayoclinic.org</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mayo Clinic. All Rights Reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
